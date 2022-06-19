@@ -1,0 +1,19 @@
+<mat-card *ngIf="card && card.isActive()">
+  <mat-card-header>
+    <mat-card-title>{{card.title}}</mat-card-title>
+    <mat-card-subtitle *ngIf="card.subtitle">{{card.subtitle}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="margin-left: 1rem;" [innerHtml]="card.getBody()"></div>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <ng-container *ngFor="let option of card.options">
+      <button *ngIf="!option.isActive()" mat-button (click)="option.action()">
+        {{option.name}}
+      </button>
+      <button *ngIf="option.isActive()" mat-raised-button (click)="option.action()" color="primary">
+        {{option.name}}
+      </button>
+    </ng-container>
+  </mat-card-actions>
+</mat-card>
