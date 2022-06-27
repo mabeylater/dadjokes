@@ -1,6 +1,5 @@
 type Joke
   @model
-  @searchable
   @auth(
     rules: [
       { allow: owner }
