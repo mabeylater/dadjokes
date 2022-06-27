@@ -1,13 +1,16 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
 .cards-container {
   margin: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: left;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
 mat-card {
   flex: auto;
-  width: 300px;
+  margin: 0 !important;
 }

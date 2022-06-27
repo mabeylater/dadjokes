@@ -1,0 +1,26 @@
+<mat-toolbar class="jokes-toolbar">
+  <a *ngIf="isAuthenticated" [routerLink]="['create']" mat-button>
+    <mat-icon matPrefix>add</mat-icon>
+    Add Joke
+  </a>
+  <button mat-button>
+    <mat-icon matPrefix>filter_list</mat-icon>
+    Filter
+  </button>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<ng-container *ngIf="isAuthenticated">
+  <mat-tab-group>
+    <mat-tab label="All Jokes">
+      <app-card-container [cards]="jokeCards"></app-card-container>
+    </mat-tab>
+    <mat-tab label="My Jokes">
+      <ng-container *ngIf="myJokeCards && myJokeCards.length > 0">
+        <app-card-container [cards]="myJokeCards"></app-card-container>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>
+<ng-container *ngIf="!isAuthenticated">
+  <app-card-container [cards]="jokeCards"></app-card-container>
+</ng-container>

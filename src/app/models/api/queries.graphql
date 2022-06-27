@@ -1,0 +1,53 @@
+# this is an auto generated file. This will be overwritten
+query GetJoke($id: ID!) {
+  getJoke(id: $id) {
+    text
+    author
+    id
+    createdAt
+    updatedAt
+  }
+}
+query ListJokes(
+  $filter: ModelJokeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listJokes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      text
+      author
+      id
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    email
+    firstName
+    lastName
+    id
+    createdAt
+    updatedAt
+  }
+}
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      email
+      firstName
+      lastName
+      id
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AppCard } from 'src/app/models/app.models';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatMenu } from '@angular/material/menu';
+import { ApiAppCard } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-card-container',
@@ -8,7 +9,6 @@ import { AppCard } from 'src/app/models/app.models';
 })
 export class AppCardContainerComponent {
 
-  @Input() cards?: Array<AppCard>;
+  @Input() cards?: Array<ApiAppCard>;
   @Input() alwaysShow?: boolean;
-
 }

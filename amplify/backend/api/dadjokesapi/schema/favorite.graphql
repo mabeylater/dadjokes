@@ -1,0 +1,7 @@
+type Favorites
+  @model
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [create] }]) {
+  owner: String
+  jokeIds: [String]
+  catFacts: [String]
+}

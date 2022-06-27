@@ -1,0 +1,6 @@
+<ng-container *ngIf="isNew; else currentJoke">
+  <app-create-joke></app-create-joke>
+</ng-container>
+<ng-template #currentJoke>
+  <app-card-container *ngIf="jokeCard" [cards]="[jokeCard]"></app-card-container>
+</ng-template>

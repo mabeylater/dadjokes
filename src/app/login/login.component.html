@@ -1,0 +1,11 @@
+<div [class.add-margin]="!currentUser">
+  <amplify-authenticator>
+    <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+      <mat-toolbar id="account-toolbar">
+        Welcome {{ user.attributes.name }}!
+        <span style="flex: auto;"></span>
+        <a [routerLink]="['login']" mat-button (click)="signOut()">Sign Out</a>
+      </mat-toolbar>
+    </ng-template>
+  </amplify-authenticator>
+</div>

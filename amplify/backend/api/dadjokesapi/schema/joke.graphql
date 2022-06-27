@@ -1,0 +1,15 @@
+type Joke
+  @model
+  @searchable
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: private, operations: [read, create] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  text: String
+  owner: String
+  author: String
+  likedBy: [String]
+}
