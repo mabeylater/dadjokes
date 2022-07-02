@@ -2,6 +2,54 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createJoke = /* GraphQL */ `
+  mutation CreateJoke(
+    $input: CreateJokeInput!
+    $condition: ModelJokeConditionInput
+  ) {
+    createJoke(input: $input, condition: $condition) {
+      text
+      author
+      likedBy
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateJoke = /* GraphQL */ `
+  mutation UpdateJoke(
+    $input: UpdateJokeInput!
+    $condition: ModelJokeConditionInput
+  ) {
+    updateJoke(input: $input, condition: $condition) {
+      text
+      author
+      likedBy
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteJoke = /* GraphQL */ `
+  mutation DeleteJoke(
+    $input: DeleteJokeInput!
+    $condition: ModelJokeConditionInput
+  ) {
+    deleteJoke(input: $input, condition: $condition) {
+      text
+      author
+      likedBy
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const createFavorites = /* GraphQL */ `
   mutation CreateFavorites(
     $input: CreateFavoritesInput!
@@ -41,54 +89,6 @@ export const deleteFavorites = /* GraphQL */ `
       owner
       jokeIds
       catFacts
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createJoke = /* GraphQL */ `
-  mutation CreateJoke(
-    $input: CreateJokeInput!
-    $condition: ModelJokeConditionInput
-  ) {
-    createJoke(input: $input, condition: $condition) {
-      text
-      owner
-      author
-      likedBy
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateJoke = /* GraphQL */ `
-  mutation UpdateJoke(
-    $input: UpdateJokeInput!
-    $condition: ModelJokeConditionInput
-  ) {
-    updateJoke(input: $input, condition: $condition) {
-      text
-      owner
-      author
-      likedBy
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteJoke = /* GraphQL */ `
-  mutation DeleteJoke(
-    $input: DeleteJokeInput!
-    $condition: ModelJokeConditionInput
-  ) {
-    deleteJoke(input: $input, condition: $condition) {
-      text
-      owner
-      author
-      likedBy
       id
       createdAt
       updatedAt

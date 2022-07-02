@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
-  <a routerLink="">{{navigation.title}}</a>
+  <a routerLink="">{{navigation?.title}}</a>
   <span style="flex: auto"></span>
-  <ng-container *ngFor="let option of navigation.options">
+  <ng-container *ngFor="let option of navigation?.options">
     <a *ngIf="!option.iconOnly && option.visible" routerLinkActive="activeOption" mat-button [routerLink]="[option.routerLink]">
       <mat-icon *ngIf="option.icon">{{option.icon}}</mat-icon>
       {{option.name}}

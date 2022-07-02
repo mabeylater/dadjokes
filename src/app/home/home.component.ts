@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppCard } from '../models/app.models';
-import { ApiService } from '../services/api.service';
-import { AuthService } from '../services/auth.service';
 import { GlobalService } from '../services/global.service';
 
 @Component({
@@ -23,15 +21,15 @@ export class HomeComponent implements OnInit {
       false,
       false
     ),
-    new AppCard(
-      'Favorites',
-      undefined,
-      'View All Jokes or Your Submitted Jokes',
-      ['/favorites'],
-      true,
-      false,
-      false
-    ),
+    // new AppCard(
+    //   'Favorites',
+    //   undefined,
+    //   'View All Jokes or Your Submitted Jokes',
+    //   ['/favorites'],
+    //   true,
+    //   false,
+    //   false
+    // ),
     new AppCard(
       'Cat Facts',
       undefined,
@@ -48,6 +46,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAuthnedUser();
+  }
+
+  async getAuthnedUser() {
+    await this.global.getIsAuthenticatedAsync();
     this.isAuthenticated = this.global.isAuthenticated;
   }
 }

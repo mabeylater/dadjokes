@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Joke, SearchableJokeFilterInput } from 'src/app/models/api';
+import { Joke } from 'src/app/models/api';
 import { ApiAppCard } from 'src/app/models/app.models';
 import { ArrayApiResponse, ApiResponseKeys, ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
@@ -18,6 +18,7 @@ export class ListJokesComponent implements OnInit {
   myJokeCards!: Array<ApiAppCard>
 
   isAuthenticated = false;
+  enableTableView = false;
 
   constructor(
     private api: ApiService,
@@ -29,23 +30,25 @@ export class ListJokesComponent implements OnInit {
   }
 
   async getAllJokes() {
+    await this.global.getIsAuthenticatedAsync();
     this.isAuthenticated = this.global.isAuthenticated;
 
-    const jokesResponse = await this.api.getAllJokesAsync();
-    this.jokes = jokesResponse.data[ApiResponseKeys.listJokes].items;
-    this.jokeCards = this.jokes.map(joke => new ApiAppCard(joke, true, false, this.isAuthenticated))
+    try {
+      const jokesResponse = await this.api.getAllJokesAsync();
+      this.jokes = jokesResponse.data[ApiResponseKeys.listJokes].items;
+      this.jokeCards = this.jokes?.map(joke => new ApiAppCard(joke, true, false, this.isAuthenticated))
 
-    if (this.global.isAuthenticated) {
-
-      const myJokesSearch: SearchableJokeFilterInput = {
-        owner: {
-          eq: this.global.currentUserId
-        }
+      if (this.global.isAuthenticated) {
+        const myJokesResponse = await this.api.getMyJokesAsync();
+        this.myJokes = myJokesResponse.data[ApiResponseKeys.jokeByAuthor].items;
+        this.myJokeCards = this.myJokes.map(joke => new ApiAppCard(joke, true, true, false));
       }
-
-      const myJokesResponse = await this.api.getMyJokesAsync(myJokesSearch);
-      this.myJokes = myJokesResponse.data[ApiResponseKeys.listJokes].items;
-      this.myJokeCards = this.jokes.map(joke => new ApiAppCard(joke, true, true, false));
+    } catch (err) {
+      console.log(err);
     }
+  }
+
+  async deleteJoke(deleteEvent: {id: string }) {
+    await this.api.deleteJokeAsync(deleteEvent);
   }
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
-import { getJoke, listJokes, listFavorites, getFavorites, searchJokes } from 'src/graphql/queries';
+import { getJoke, listJokes, listFavorites, getFavorites, jokeByAuthor } from 'src/graphql/queries';
 import { createJoke, updateJoke, deleteJoke } from '../../graphql/mutations';
-import { CreateJokeInput, Joke, SearchableJokeFilterInput, SearchableJokeSortableFields, SearchableJokeSortInput, SearchableSortDirection, SearchableStringFilterInput, UpdateJokeInput } from '../models/api';
+import { CreateJokeInput, DeleteJokeInput, Joke, UpdateJokeInput } from '../models/api';
+import { AuthService } from './auth.service';
 import { GlobalService } from './global.service';
 
 export interface ArrayApiResponse<T> {
@@ -10,19 +11,21 @@ export interface ArrayApiResponse<T> {
     [key: string]: {
       items: Array<T>
     }
-  }
+  },
+  errors: Array<any>
 }
 
 export interface SingleItemApiResponse<T> {
   data: {
     [key: string]: T
-  }
+  },
+  errors: Array<any>
 }
 
 export class ApiResponseKeys {
   public static readonly listJokes = "listJokes";
+  public static readonly jokeByAuthor = "jokeByAuthor";
   public static readonly listFavorites = "listFavorites";
-  public static readonly searchJokes = "searchJokes";
   public static readonly getJoke = "getJoke";
   public static readonly getFavorites = "getFavorites";
 }
@@ -33,20 +36,30 @@ export class ApiResponseKeys {
 export class ApiService {
 
   constructor(
-    private global: GlobalService
+    private global: GlobalService,
+    private auth: AuthService
   ) { }
 
+  async getToken() {
+    const session = await this.auth.getCurrentSession();
+    return session.getAccessToken().getJwtToken();
+  }
+
   async createJokeAsync(joke: CreateJokeInput): Promise<any> {
-    joke.owner = this.global.currentUserId;
-    return await API.graphql(graphqlOperation(createJoke, { input: joke }))
+    joke.author = this.global.currentUserEmail;
+    const authToken = await this.getToken()
+    const createJokeResponse = await API.graphql(graphqlOperation(createJoke, { input: joke }, authToken));
+    return createJokeResponse;
   }
 
   async updateJokeAsync(joke: UpdateJokeInput): Promise<any> {
     return await API.graphql(graphqlOperation(updateJoke, { input: joke }))
   }
 
-  async deleteJokeAsync(id: string): Promise<any> {
-    return await API.graphql(graphqlOperation(deleteJoke, { input: id }))
+  async deleteJokeAsync(deleteEvent: { id: string }): Promise<any> {
+    const request: DeleteJokeInput = deleteEvent;
+    const authToken = await this.getToken();
+    return await API.graphql(graphqlOperation(deleteJoke, { input: request }, authToken));
   }
 
   async getAllJokesAsync(): Promise<any> {
@@ -56,14 +69,12 @@ export class ApiService {
     return jokes as Promise<ArrayApiResponse<Joke>>
   }
 
-  async getMyJokesAsync(filter: SearchableJokeFilterInput): Promise<ArrayApiResponse<Joke>> {
-    const sort: SearchableJokeSortInput = {
-      field: SearchableJokeSortableFields.author,
-      direction: SearchableSortDirection.asc
-    }
-
+  async getMyJokesAsync(): Promise<ArrayApiResponse<Joke>> {
+    const authToken = await this.getToken()
     const jokes = await API.graphql(
-      graphqlOperation(listJokes, { filter: filter })
+      graphqlOperation(jokeByAuthor, {
+          author: this.global.currentUserEmail
+      }, authToken)
     );
     return jokes as Promise<ArrayApiResponse<Joke>>
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { GlobalService } from '../services/global.service';
 
@@ -8,7 +8,11 @@ import { GlobalService } from '../services/global.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  @Input() showUserDetails = true;
+
   currentUser: any;
+  identities: any;
 
   constructor(
     private auth: AuthService,
@@ -21,5 +25,8 @@ export class LoginComponent implements OnInit {
 
   async getCurrentUser() {
     this.currentUser = await this.auth.getCurrentUser();
+    this.identities = JSON.parse(this.currentUser.attributes.identities)
   }
+
+
 }

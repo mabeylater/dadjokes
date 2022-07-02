@@ -45,6 +45,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from './shared/shared.module';
+import { ErrorMessagesComponent } from './views/error-messages/error-messages.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SharedModule } from './shared/shared.module';
     NavigationComponent,
     HomeComponent,
     LoginComponent,
+    ErrorMessagesComponent,
   ],
   imports: [
     BrowserModule,

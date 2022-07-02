@@ -13,4 +13,9 @@ export class AuthService {
     const currentUser = await Auth.currentUserInfo();
     return currentUser
   }
+
+  async getCurrentSession() {
+    const currentSession = await Auth.currentSession();
+    return currentSession
+  }
 }

@@ -7,20 +7,88 @@
     <mat-icon matPrefix>filter_list</mat-icon>
     Filter
   </button>
+  <span style="flex: auto"></span>
+  <mat-button-toggle-group [(value)]="enableTableView">
+    <mat-button-toggle [value]="true">
+      <mat-icon>list</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle [value]="false">
+      <mat-icon>apps</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </mat-toolbar>
 <mat-divider></mat-divider>
 <ng-container *ngIf="isAuthenticated">
   <mat-tab-group>
     <mat-tab label="All Jokes">
-      <app-card-container [cards]="jokeCards"></app-card-container>
+      <ng-container *ngIf="jokeCards && jokeCards.length > 0">
+        <ng-container *ngIf="!enableTableView">
+          <app-card-container [cards]="jokeCards"></app-card-container>
+        </ng-container>
+        <table style="width: 100%;" mat-table [dataSource]="jokeCards" *ngIf="enableTableView">
+          <!-- Position Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="joke">
+            <th mat-header-cell *matHeaderCellDef> Joke </th>
+            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Author </th>
+            <td mat-cell *matCellDef="let element"> {{element.subtitle}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['title', 'joke', 'author']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['title', 'joke', 'author'];"></tr>
+        </table>
+      </ng-container>
     </mat-tab>
     <mat-tab label="My Jokes">
       <ng-container *ngIf="myJokeCards && myJokeCards.length > 0">
-        <app-card-container [cards]="myJokeCards"></app-card-container>
+        <ng-container *ngIf="!enableTableView">
+          <app-card-container (deleteClick)="deleteJoke($event)" [cards]="myJokeCards"></app-card-container>
+        </ng-container>
+        <table style="width: 100%;" mat-table [dataSource]="myJokeCards" *ngIf="enableTableView">
+          <!-- Position Column -->
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="joke">
+            <th mat-header-cell *matHeaderCellDef> Joke </th>
+            <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Author </th>
+            <td mat-cell *matCellDef="let element"> {{element.subtitle}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="deleteJoke(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['title', 'joke', 'author', 'delete']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['title', 'joke', 'author', 'delete'];"></tr>
+        </table>
       </ng-container>
     </mat-tab>
   </mat-tab-group>
 </ng-container>
-<ng-container *ngIf="!isAuthenticated">
+<ng-container *ngIf="!isAuthenticated && jokeCards && jokeCards.length > 0">
   <app-card-container [cards]="jokeCards"></app-card-container>
 </ng-container>

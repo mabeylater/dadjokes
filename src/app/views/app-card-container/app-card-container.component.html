@@ -15,7 +15,7 @@
         {{card.content}}
       </mat-card-content>
       <mat-card-actions *ngIf="card.routerLink || card.showDelete" align="end">
-        <button *ngIf="card.showDelete" color="warn" mat-button>Delete</button>
+        <button *ngIf="card.showDelete && card.id" color="warn" mat-button (click)="onDeleteClick(card.id)">Delete</button>
         <a *ngIf="card.routerLink" mat-raised-button color="primary" [routerLink]="card.routerLink">View</a>
       </mat-card-actions>
     </mat-card>

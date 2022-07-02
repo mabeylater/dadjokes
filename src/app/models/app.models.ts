@@ -21,6 +21,9 @@ export class AppCard {
   showView?: boolean;
   showDelete?: boolean;
   showFavorite?: boolean;
+  id?: string;
+  version?: number;
+
 
   constructor(
     title?: string,
@@ -30,6 +33,8 @@ export class AppCard {
     showView?: boolean,
     showDelete?: boolean,
     showFavorite?: boolean,
+    id?: string,
+    version?: number
   ) {
     this.title = title;
     this.subtitle = subtitle;
@@ -38,6 +43,8 @@ export class AppCard {
     this.showView = showView;
     this.showDelete = showDelete;
     this.showFavorite = showFavorite;
+    this.id = id;
+    this.version = version;
   }
 }
 export class ApiAppCard extends AppCard {
@@ -49,6 +56,8 @@ export class ApiAppCard extends AppCard {
   ) {
     super()
     if (joke) {
+      this.id = joke.id;
+      this.version = 0;
       this.title = 'Joke';
       this.subtitle = joke.author || 'unknown';
       this.content = joke.text || 'unknown';

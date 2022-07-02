@@ -17,6 +17,7 @@ export class ViewJokeComponent implements OnInit {
 
   id?: string | null;
   isNew: boolean;
+  isAuthenticated!: boolean;
 
   constructor(
     private api: ApiService,
@@ -32,10 +33,16 @@ export class ViewJokeComponent implements OnInit {
   }
 
   async getJoke() {
+    await this.global.getIsAuthenticatedAsync();
+    this.isAuthenticated = this.global.isAuthenticated;
     if (this.id) {
-      const jokeResponse = await this.api.getJokeByIdAsync(this.id);
-      this.joke = jokeResponse.data[ApiResponseKeys.getJoke];
-      this.jokeCard = new ApiAppCard(this.joke, undefined, false, false)
+      try {
+        const jokeResponse = await this.api.getJokeByIdAsync(this.id);
+        this.joke = jokeResponse?.data[ApiResponseKeys.getJoke];
+        this.jokeCard = new ApiAppCard(this.joke, undefined, false, false)
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 }

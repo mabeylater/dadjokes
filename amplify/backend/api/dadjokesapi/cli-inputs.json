@@ -3,16 +3,21 @@
   "serviceConfiguration": {
     "apiName": "dadjokesapi",
     "serviceName": "AppSync",
-    "gqlSchemaPath": "C:\\Users\\zach\\personal\\dadjokes\\amplify\\backend\\api\\dadjokesapi\\schema",
+    "gqlSchemaPath": "C:\\Users\\zach\\personal\\dadjokes\\amplify\\backend\\api\\dadjokesapi\\schema.graphql",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authdadjokes"
     },
     "additionalAuthTypes": [
       {
-        "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authdadjokes"
+        "mode": "AWS_IAM"
+      },
+      {
+        "mode": "API_KEY",
+        "keyDescription": "api key description",
+        "expirationTime": 30
       }
-    ]
+    ],
+    "conflictResolution": {}
   }
 }

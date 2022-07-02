@@ -1,6 +1,6 @@
 projects:
   dadjokesapi:
-    schemaPath: amplify/backend/api/dadjokesapi/build/schema/
+    schemaPath: amplify/backend/api/dadjokesapi/build/schema.graphql
     includes:
       - src/graphql/**/*.ts
     excludes:

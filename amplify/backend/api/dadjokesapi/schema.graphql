@@ -1,0 +1,22 @@
+type Joke
+  @model
+  @auth(
+    rules: [
+      { allow: public, operations: [read] }
+      { allow: private, operations: [read, create] }
+      { allow: owner }
+    ]
+  ) {
+  title: String
+  text: String
+  author: String @index(name: "byAuthor", queryField: "jokeByAuthor")
+  likedBy: [String]
+  tags: [String]
+}
+
+type Favorites
+  @model
+  @auth(rules: [{ allow: owner, operations: [read, create, update] }]) {
+  jokeIds: [String]
+  catFacts: [String]
+}

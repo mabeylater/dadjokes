@@ -4,8 +4,19 @@
       <mat-toolbar id="account-toolbar">
         Welcome {{ user.attributes.name }}!
         <span style="flex: auto;"></span>
-        <a [routerLink]="['login']" mat-button (click)="signOut()">Sign Out</a>
+        <a [routerLink]="['/login']" mat-button (click)="signOut()">Sign Out</a>
       </mat-toolbar>
+      <mat-list *ngIf="showUserDetails">
+        <mat-list-item *ngIf="identities">
+          Login Provider: {{identities[0]?.providerName}}
+        </mat-list-item>
+        <mat-list-item *ngIf="identities">
+          ID: {{identities[0]?.userId}}
+        </mat-list-item>
+        <mat-list-item>
+          Email: {{user.attributes.email}}
+        </mat-list-item>
+      </mat-list>
     </ng-template>
   </amplify-authenticator>
 </div>

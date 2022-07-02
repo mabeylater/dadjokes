@@ -16,7 +16,11 @@ export class GlobalService {
   set currentUser(currentUser: any) {
     this._currentUserId = currentUser.id
     this._currentUserEmail = currentUser.attributes.email
-    this._isAuthenticated = true;
+    this.IsAuthenticated = true;
+  }
+
+  set IsAuthenticated(isAuthenticated: boolean) {
+    this._isAuthenticated = isAuthenticated;
   }
 
   get currentUserId() {
@@ -35,12 +39,12 @@ export class GlobalService {
     private router: Router,
     private auth: AuthService
   ) {
-    // this.checkIsAuthenticated();
-    // this.router.events.pipe(
-    //   filter(event => event instanceof NavigationEnd)
-    // ).subscribe(() => {
-    //   this.checkIsAuthenticated();
-    // });
+    this.checkIsAuthenticated();
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.checkIsAuthenticated();
+    });
   }
 
   checkIsAuthenticated() {

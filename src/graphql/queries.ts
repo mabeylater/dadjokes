@@ -2,6 +2,67 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getJoke = /* GraphQL */ `
+  query GetJoke($id: ID!) {
+    getJoke(id: $id) {
+      text
+      author
+      likedBy
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listJokes = /* GraphQL */ `
+  query ListJokes(
+    $filter: ModelJokeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listJokes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        text
+        author
+        likedBy
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const jokeByAuthor = /* GraphQL */ `
+  query JokeByAuthor(
+    $author: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelJokeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    jokeByAuthor(
+      author: $author
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        text
+        author
+        likedBy
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getFavorites = /* GraphQL */ `
   query GetFavorites($id: ID!) {
     getFavorites(id: $id) {
@@ -33,81 +94,30 @@ export const listFavorites = /* GraphQL */ `
     }
   }
 `;
-export const getJoke = /* GraphQL */ `
-  query GetJoke($id: ID!) {
-    getJoke(id: $id) {
-      text
-      owner
-      author
-      likedBy
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listJokes = /* GraphQL */ `
-  query ListJokes(
-    $filter: ModelJokeFilterInput
+export const myFavorites = /* GraphQL */ `
+  query MyFavorites(
+    $owner: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelFavoritesFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listJokes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        text
-        owner
-        author
-        likedBy
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const searchJokes = /* GraphQL */ `
-  query SearchJokes(
-    $filter: SearchableJokeFilterInput
-    $sort: [SearchableJokeSortInput]
-    $limit: Int
-    $nextToken: String
-    $from: Int
-    $aggregates: [SearchableJokeAggregationInput]
-  ) {
-    searchJokes(
+    myFavorites(
+      owner: $owner
+      sortDirection: $sortDirection
       filter: $filter
-      sort: $sort
       limit: $limit
       nextToken: $nextToken
-      from: $from
-      aggregates: $aggregates
     ) {
       items {
-        text
         owner
-        author
-        likedBy
+        jokeIds
+        catFacts
         id
         createdAt
         updatedAt
       }
       nextToken
-      total
-      aggregateItems {
-        name
-        result {
-          ... on SearchableAggregateScalarResult {
-            value
-          }
-          ... on SearchableAggregateBucketResult {
-            buckets {
-              key
-              doc_count
-            }
-          }
-        }
-      }
     }
   }
 `;

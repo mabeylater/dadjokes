@@ -1,4 +1,4 @@
-<app-login></app-login>
+<app-login [showUserDetails]="false"></app-login>
 <ng-container *ngIf="isAuthenticated">
     <app-card-container [cards]="cards"></app-card-container>
 </ng-container>
