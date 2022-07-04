@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <a routerLink="">{{navigation?.title}}</a>
+  <span style="flex: auto"></span>
+  <ng-container *ngFor="let option of navigation?.options">
+    <a *ngIf="!option.iconOnly && option.visible" routerLinkActive="activeOption" mat-button [routerLink]="[option.routerLink]">
+      <mat-icon *ngIf="option.icon">{{option.icon}}</mat-icon>
+      {{option.name}}
+    </a>
+    <a *ngIf="option.iconOnly && option.visible" routerLinkActive="activeOption" mat-icon-button [routerLink]="[option.routerLink]">
+      <mat-icon>{{option.icon}}</mat-icon>
+    </a>
+  </ng-container>
+</mat-toolbar>
+<router-outlet></router-outlet>

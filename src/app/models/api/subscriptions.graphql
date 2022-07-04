@@ -1,0 +1,58 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateJoke {
+  onCreateJoke {
+    text
+    author
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateJoke {
+  onUpdateJoke {
+    text
+    author
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteJoke {
+  onDeleteJoke {
+    text
+    author
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUser {
+  onCreateUser {
+    email
+    firstName
+    lastName
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUser {
+  onUpdateUser {
+    email
+    firstName
+    lastName
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUser {
+  onDeleteUser {
+    email
+    firstName
+    lastName
+    id
+    createdAt
+    updatedAt
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AppCard } from 'src/app/models/app.models';
+import { ApiAppCard } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-card',
@@ -8,5 +8,5 @@ import { AppCard } from 'src/app/models/app.models';
 })
 export class AppCardComponent {
 
-  @Input() card?: AppCard;
+  @Input() card?: ApiAppCard;
 }

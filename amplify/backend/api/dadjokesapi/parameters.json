@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "dadjokesapi",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authdadjokes",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-07-02T13:25:46.504Z"
+}

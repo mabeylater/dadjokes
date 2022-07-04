@@ -1,22 +1,22 @@
 <section *ngIf="cards && cards.length > 0" class="cards-container">
-  <ng-container *ngFor="let card of cards">
-    <mat-card *ngIf="card && (card.isActive() || alwaysShow)">
+  <ng-container *ngFor="let card of cards; let i = index">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>{{card.title}}</mat-card-title>
         <mat-card-subtitle *ngIf="card.subtitle">{{card.subtitle}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div style="margin-left: 1rem;" [innerHtml]="card.getBody()"></div>
-      </mat-card-content>
-      <mat-card-actions align="end">
-        <ng-container *ngFor="let option of card.options">
-          <button *ngIf="!option.isActive()" mat-button (click)="option.action()">
-            {{option.name}}
-          </button>
-          <button *ngIf="option.isActive()" mat-raised-button (click)="option.action()" color="primary">
-            {{option.name}}
+        <ng-container *ngIf="card.showFavorite">
+          <span style="flex: auto"></span>
+          <button mat-icon-button>
+            <mat-icon  [class.not-liked]="true">thumb_up</mat-icon>
           </button>
         </ng-container>
+      </mat-card-header>
+      <mat-card-content style="margin-left: 1rem;">
+        {{card.content}}
+      </mat-card-content>
+      <mat-card-actions *ngIf="card.routerLink || card.showDelete" align="end">
+        <button *ngIf="card.showDelete && card.id" color="warn" mat-button (click)="onDeleteClick(card.id)">Delete</button>
+        <a *ngIf="card.routerLink" mat-raised-button color="primary" [routerLink]="card.routerLink">View</a>
       </mat-card-actions>
     </mat-card>
   </ng-container>

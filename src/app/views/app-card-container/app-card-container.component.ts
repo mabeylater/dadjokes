@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AppCard } from 'src/app/models/app.models';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatMenu } from '@angular/material/menu';
+import { ApiAppCard, AppCard } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-card-container',
@@ -8,7 +9,11 @@ import { AppCard } from 'src/app/models/app.models';
 })
 export class AppCardContainerComponent {
 
-  @Input() cards?: Array<AppCard>;
+  @Input() cards?: Array<ApiAppCard | AppCard>;
   @Input() alwaysShow?: boolean;
+  @Output() deleteClick = new EventEmitter<{ id: string }>();
 
+  onDeleteClick(id: string) {
+    this.deleteClick.emit({ id });
+  }
 }

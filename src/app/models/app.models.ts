@@ -1,3 +1,5 @@
+import { Favorites, Joke } from "./api";
+
 export interface AppNavigation {
   title: string;
   options: Array<AppNavigationOption>
@@ -5,16 +7,66 @@ export interface AppNavigation {
 
 export interface AppNavigationOption {
   name: string;
-  action(): void;
-  isActive(): boolean;
+  routerLink?: string;
+  icon?: string;
+  iconOnly?: boolean;
+  visible?: boolean;
 }
 
-export interface AppCard extends AppNavigation{
+export class AppCard {
+  title?: string;
   subtitle?: string;
-  getBody(): string;
-  imageLinks?: Array<string>;
-  isActive(): boolean;
-  maxWidth?: string;
+  content?: string;
+  routerLink?: Array<string>
+  showView?: boolean;
+  showDelete?: boolean;
+  showFavorite?: boolean;
+  id?: string;
+  version?: number;
+
+
+  constructor(
+    title?: string,
+    subtitle?: string,
+    content?: string,
+    routerLink?: Array<string>,
+    showView?: boolean,
+    showDelete?: boolean,
+    showFavorite?: boolean,
+    id?: string,
+    version?: number
+  ) {
+    this.title = title;
+    this.subtitle = subtitle;
+    this.content = content;
+    this.routerLink = routerLink;
+    this.showView = showView;
+    this.showDelete = showDelete;
+    this.showFavorite = showFavorite;
+    this.id = id;
+    this.version = version;
+  }
+}
+export class ApiAppCard extends AppCard {
+  constructor(
+    joke?: Joke,
+    showView: boolean = true,
+    showDelete: boolean = false,
+    showFavorite: boolean = true,
+  ) {
+    super()
+    if (joke) {
+      this.id = joke.id;
+      this.version = 0;
+      this.title = 'Joke';
+      this.subtitle = joke.author || 'unknown';
+      this.content = joke.text || 'unknown';
+      this.routerLink = ['/jokes', joke.id];
+      this.showView = showView
+      this.showDelete = showDelete
+      this.showFavorite = showFavorite
+    }
+  }
 }
 
 export interface ProfanityFilterResponse {
