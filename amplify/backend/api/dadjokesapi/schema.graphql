@@ -20,3 +20,10 @@ type Favorites
   jokeIds: [String]
   catFacts: [String]
 }
+
+type User
+@model
+@auth(rules: [{ allow: owner, operations: [read, create] }])
+{
+  username: String @auth(rules: [{allow: public, operations: [read]}])
+}
