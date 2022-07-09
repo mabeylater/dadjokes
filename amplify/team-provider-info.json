@@ -1,4 +1,22 @@
 {
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dadjokes-prod-220756-authRole",
+      "UnauthRoleArn": "arn:aws:iam::093733481711:role/amplify-dadjokes-prod-220756-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::093733481711:role/amplify-dadjokes-prod-220756-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-dadjokes-prod-220756-deployment",
+      "UnauthRoleName": "amplify-dadjokes-prod-220756-unauthRole",
+      "StackName": "amplify-dadjokes-prod-220756",
+      "StackId": "arn:aws:cloudformation:us-west-2:093733481711:stack/amplify-dadjokes-prod-220756/c2570c50-fbe5-11ec-9cec-02e520e842c7",
+      "AmplifyAppId": "d3u37kp1oyix45"
+    },
+    "categories": {
+      "auth": {
+        "dadjokes": {}
+      }
+    }
+  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-amplify645fb84fa1d94-staging-212346-authRole",
