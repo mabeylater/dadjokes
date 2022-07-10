@@ -1,22 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CreateJokeInput, Joke, UpdateJokeInput } from 'src/app/models/api';
+import { ApiAppCard, AppCard } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-joke-card',
   templateUrl: './joke-card.component.html',
   styleUrls: ['./joke-card.component.scss']
 })
-export class JokeCardComponent implements OnInit {
+export class JokeCardComponent {
 
-  @Input()
-  isNew: boolean = false;
+  @Input() cards?: Array<ApiAppCard | AppCard>;
+  @Input() alwaysShow?: boolean;
+  @Output() deleteClick = new EventEmitter<{ id: string }>();
 
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-
+  onDeleteClick(id: string) {
+    this.deleteClick.emit({ id });
   }
 
 }

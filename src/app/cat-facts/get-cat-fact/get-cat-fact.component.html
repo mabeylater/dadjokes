@@ -1,0 +1,54 @@
+<mat-toolbar class="page-options-toolbar" style="margin-bottom: 1rem;">
+  <button mat-icon-button (click)="getCatImages(selectedCategory)">
+    <mat-icon matPrefix>pets</mat-icon>
+  </button>
+  <mat-form-field style="margin-left:1rem" floatLabel="never">
+    <mat-label style="font-size: 14px;">Random</mat-label>
+    <mat-select style="font-size: 14px;" [(value)]="selectedCategory"
+      (selectionChange)="getCatImages(selectedCategory)">
+      <mat-option (click)="getCatImages()">Random</mat-option>
+      <mat-option *ngFor="let item of catCategories" [value]="item.id">
+        {{item.name}}
+      </mat-option>
+    </mat-select>
+    <mat-hint style="font-size: 12px;">filter by category</mat-hint>
+  </mat-form-field>
+  <mat-form-field style="margin-left:1rem" floatLabel="never">
+    <mat-label style="font-size: 14px;">number of images</mat-label>
+    <mat-select style="font-size: 14px;" [(value)]="limit" (selectionChange)="getCatImages(selectedCategory)">
+      <mat-option [value]="6">6</mat-option>
+      <mat-option [value]="12">12</mat-option>
+      <mat-option [value]="18">18</mat-option>
+    </mat-select>
+    <mat-hint style="font-size: 12px;">numbers of images to get</mat-hint>
+  </mat-form-field>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<ng-container *ngIf="!currentCatFacts">
+  <div style="padding: 1rem; text-align: center;">
+    <p>Finding Some Furry Friends</p>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</ng-container>
+<ng-container *ngIf="currentCatFacts">
+  <div class="cat-cards-container">
+    <mat-card *ngFor="let cat of currentCatFacts" class="cat-card"
+      style="background-image: url('{{cat.url}}'); padding: 0px">
+      <div class="action-card-actions">
+        <span style="margin-right: .5rem;">tags:</span>
+        <mat-chip-list>
+          <mat-chip *ngFor="let item of cat.categories" (click)="getCatImages(item.id)">{{item.name }}</mat-chip>
+          <mat-chip disabled="true" *ngIf="!cat.categories">no tags</mat-chip>
+        </mat-chip-list>
+        <span style="flex: auto"></span>
+        <button mat-icon-button>
+          <mat-icon>share</mat-icon>
+        </button>
+        <a class="view-button" [routerLink]="['view']" [queryParams]="{'catImageName': getImageUrl(cat.url)}"
+          mat-icon-button>
+          <mat-icon>open_in_new</mat-icon>
+        </a>
+      </div>
+    </mat-card>
+  </div>
+</ng-container>

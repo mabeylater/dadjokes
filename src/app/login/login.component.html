@@ -6,6 +6,7 @@
         <span style="flex: auto;"></span>
         <a [routerLink]="['/login']" mat-button (click)="signOut()">Sign Out</a>
       </mat-toolbar>
+      <mat-divider></mat-divider>
       <mat-list *ngIf="showUserDetails">
         <mat-list-item *ngIf="identities">
           Login Provider: {{identities[0]?.providerName}}

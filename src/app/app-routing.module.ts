@@ -13,8 +13,12 @@ const routes: Routes = [
     loadChildren: () => import('./jokes/jokes.module').then(m => m.JokesModule)
   },
   {
-    path: 'cat-facts',
+    path: 'cats',
     loadChildren: () => import('./cat-facts/cat-facts.module').then(m => m.CatFactsModule)
+  },
+  {
+    path: 'favorites',
+    loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesModule)
   },
   {
     path: 'login',

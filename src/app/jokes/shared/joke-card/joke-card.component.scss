@@ -1,0 +1,12 @@
+.cards-container {
+  margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+mat-card {
+  margin: 0 !important;
+  padding: 0 !important
+}

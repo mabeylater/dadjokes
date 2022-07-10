@@ -39,15 +39,15 @@ export class NavigationComponent implements OnInit {
           visible: true
         },
         {
-          name: 'Cat Facts',
-          routerLink: '/jokes',
+          name: 'Cats',
+          routerLink: '/cats',
           visible: true
         },
-        {
-          name: 'Favorites',
-          routerLink: '/jokes/create',
-          visible: isAuthenticated
-        },
+        // {
+        //   name: 'Favorites',
+        //   routerLink: '/favorites',
+        //   visible: isAuthenticated
+        // },
         {
           name: 'Account',
           routerLink: '/login',

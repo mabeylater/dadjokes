@@ -1,29 +1,29 @@
-<mat-toolbar class="jokes-toolbar">
+<mat-toolbar class="page-options-toolbar">
   <a *ngIf="isAuthenticated" [routerLink]="['create']" mat-button>
     <mat-icon matPrefix>add</mat-icon>
-    Add Joke
+    <span>Add Joke</span>
   </a>
-  <button mat-button>
+  <!-- <button mat-button>
     <mat-icon matPrefix>filter_list</mat-icon>
-    Filter
-  </button>
+    <span>Filter</span>
+  </button> -->
   <span style="flex: auto"></span>
-  <mat-button-toggle-group [(value)]="enableTableView">
+  <!-- <mat-button-toggle-group [(value)]="enableTableView">
     <mat-button-toggle [value]="true">
       <mat-icon>list</mat-icon>
     </mat-button-toggle>
     <mat-button-toggle [value]="false">
       <mat-icon>apps</mat-icon>
     </mat-button-toggle>
-  </mat-button-toggle-group>
+  </mat-button-toggle-group> -->
 </mat-toolbar>
 <mat-divider></mat-divider>
 <ng-container *ngIf="isAuthenticated">
-  <mat-tab-group>
+  <mat-tab-group mat-stretch-tabs>
     <mat-tab label="All Jokes">
       <ng-container *ngIf="jokeCards && jokeCards.length > 0">
         <ng-container *ngIf="!enableTableView">
-          <app-card-container [cards]="jokeCards"></app-card-container>
+          <app-joke-card [cards]="jokeCards"></app-joke-card>
         </ng-container>
         <table style="width: 100%;" mat-table [dataSource]="jokeCards" *ngIf="enableTableView">
           <!-- Position Column -->
@@ -52,7 +52,7 @@
     <mat-tab label="My Jokes">
       <ng-container *ngIf="myJokeCards && myJokeCards.length > 0">
         <ng-container *ngIf="!enableTableView">
-          <app-card-container (deleteClick)="deleteJoke($event)" [cards]="myJokeCards"></app-card-container>
+          <app-joke-card (deleteClick)="deleteJoke($event)" [cards]="myJokeCards"></app-joke-card>
         </ng-container>
         <table style="width: 100%;" mat-table [dataSource]="myJokeCards" *ngIf="enableTableView">
           <!-- Position Column -->
@@ -90,5 +90,5 @@
   </mat-tab-group>
 </ng-container>
 <ng-container *ngIf="!isAuthenticated && jokeCards && jokeCards.length > 0">
-  <app-card-container [cards]="jokeCards"></app-card-container>
+  <app-joke-card [cards]="jokeCards"></app-joke-card>
 </ng-container>

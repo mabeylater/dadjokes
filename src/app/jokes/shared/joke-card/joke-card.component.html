@@ -1,1 +1,28 @@
-<p>joke-card works!</p>
+<section *ngIf="cards && cards.length > 0" class="cards-container">
+  <ng-container *ngFor="let card of cards; let i = index">
+    <mat-card>
+      <mat-card-content>
+        <div class="action-card">
+          <div class="action-card-content">
+            {{card.content}}
+          </div>
+          <div style="flex: auto;"></div>
+          <div class="action-card-content">
+            <div style="height: 32px;" matSubheader>- {{card.subtitle}}</div>
+          </div>
+          <div class="action-card-actions" *ngIf="card.routerLink || card.showDelete" align="end">
+            <button *ngIf="card.showDelete && card.id" color="warn" mat-icon-button (click)="onDeleteClick(card.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>share</mat-icon>
+            </button>
+            <a *ngIf="card.routerLink" mat-icon-button [routerLink]="card.routerLink">
+              <mat-icon>open_in_new</mat-icon>
+            </a>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</section>

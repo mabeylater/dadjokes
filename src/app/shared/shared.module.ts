@@ -83,6 +83,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTreeModule,
     RouterModule,
     HttpClientModule,
+    MatGridListModule
   ],
   exports: [
     FormsModule,
@@ -121,6 +122,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTreeModule,
     RouterModule,
     HttpClientModule,
+    MatGridListModule,
 
     AppCardContainerComponent,
     AppCardComponent

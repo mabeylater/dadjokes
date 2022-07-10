@@ -14,6 +14,13 @@
     "categories": {
       "auth": {
         "dadjokes": {}
+      },
+      "function": {
+        "jokesEnv": {
+          "secretsPathAmplifyAppId": "d3u37kp1oyix45",
+          "deploymentBucketName": "amplify-dadjokes-prod-220756-deployment",
+          "s3Key": "amplify-builds/jokesEnv-73705739664647597155-build.zip"
+        }
       }
     }
   },

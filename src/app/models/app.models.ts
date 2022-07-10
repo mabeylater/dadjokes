@@ -57,8 +57,6 @@ export class ApiAppCard extends AppCard {
     super()
     if (joke) {
       this.id = joke.id;
-      this.version = 0;
-      this.title = 'Joke';
       this.subtitle = joke.author || 'unknown';
       this.content = joke.text || 'unknown';
       this.routerLink = ['/jokes', joke.id];

@@ -31,10 +31,10 @@ export class HomeComponent implements OnInit {
     //   false
     // ),
     new AppCard(
-      'Cat Facts',
+      'Find Random Cat Pictures',
       undefined,
-      'Curios About Cats?',
-      ['/cat-facts'],
+      'Just some cats looking to make the world a better place.',
+      ['/cats'],
       true,
       false,
       false
