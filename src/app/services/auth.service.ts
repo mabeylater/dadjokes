@@ -5,9 +5,17 @@ import { Auth } from 'aws-amplify';
   providedIn: 'root'
 })
 export class AuthService {
+  _isAuthenticated?: boolean;
 
   constructor(
   ) { }
+
+  set IsAuthenticated(isAuthenticated: boolean) {
+    this._isAuthenticated = isAuthenticated;
+  }
+  get isAuthenticated() {
+    return this._isAuthenticated;
+  }
 
   async getCurrentUser() {
     const currentUser = await Auth.currentUserInfo();

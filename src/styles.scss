@@ -97,7 +97,6 @@ mat-toolbar {
   align-items: baseline;
   padding: 0.5rem;
   border-radius: 0px 0px 4px 4px;
-  justify-content: flex-end;
 }
 
 .action-card {
@@ -109,7 +108,7 @@ mat-toolbar {
   background-size: contain;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  padding: 0px;
 }
 
 .action-card-content {

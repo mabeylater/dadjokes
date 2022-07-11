@@ -49,6 +49,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CommonModule,
     DragDropModule,
     FormsModule,
+    ReactiveFormsModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatButtonModule,
@@ -86,6 +87,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatGridListModule
   ],
   exports: [
+    ReactiveFormsModule,
     FormsModule,
     DragDropModule,
     MatAutocompleteModule,

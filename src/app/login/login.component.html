@@ -1,23 +1,48 @@
-<div [class.add-margin]="!currentUser">
-  <amplify-authenticator>
-    <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
-      <mat-toolbar id="account-toolbar">
-        Welcome {{ user.attributes.name }}!
-        <span style="flex: auto;"></span>
-        <a [routerLink]="['/login']" mat-button (click)="signOut()">Sign Out</a>
-      </mat-toolbar>
-      <mat-divider></mat-divider>
-      <mat-list *ngIf="showUserDetails">
-        <mat-list-item *ngIf="identities">
-          Login Provider: {{identities[0]?.providerName}}
-        </mat-list-item>
-        <mat-list-item *ngIf="identities">
-          ID: {{identities[0]?.userId}}
-        </mat-list-item>
-        <mat-list-item>
-          Email: {{user.attributes.email}}
-        </mat-list-item>
-      </mat-list>
-    </ng-template>
-  </amplify-authenticator>
+<ng-container *ngIf="authenticator.route === 'authenticated'">
+  <mat-toolbar id="account-toolbar">
+    Welcome {{ authenticator.user.attributes ? authenticator.user.attributes['name'] : '' }}!
+    <span style="flex: auto;"></span>
+    <a [routerLink]="['/login']" mat-button (click)="authenticator.signOut()">Sign Out</a>
+  </mat-toolbar>
+  <mat-divider></mat-divider>
+  <form [formGroup]="attributesForm" *ngIf="showUserDetails">
+    <mat-card class="user-details-card">
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <div mat-line>
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+              </mat-form-field>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div mat-line>
+              <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="given_name">
+              </mat-form-field>
+            </div>
+          </mat-list-item>
+          <mat-list-item>
+            <div mat-line>
+              <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="family_name">
+              </mat-form-field>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button *ngIf="attributesForm.dirty" mat-button
+          (click)="attributesForm.patchValue(currentUser.attributes)">Cancel</button>
+        <button [disabled]="!attributesForm.dirty" mat-raised-button (click)="update()" color="primary">Update</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</ng-container>
+<div [class.add-margin]="authenticator.route !== 'authenticated'">
+  <amplify-authenticator></amplify-authenticator>
 </div>

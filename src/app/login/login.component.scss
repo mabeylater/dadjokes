@@ -1,5 +1,13 @@
-@import '~@aws-amplify/ui-angular/theme.css';
-
 .add-margin {
   margin-top: 3rem !important;
+}
+
+mat-list-item {
+  height: fit-content !important;
+}
+
+.user-details-card {
+  mat-form-field {
+    width: 100%;
+  }
 }
