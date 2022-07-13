@@ -35,14 +35,19 @@ export class ViewJokeComponent implements OnInit {
   async getJoke() {
     await this.global.getIsAuthenticatedAsync();
     this.isAuthenticated = this.global.isAuthenticated;
-    if (this.id) {
+    if (this.id && !this.isNew) {
       try {
         const jokeResponse = await this.api.getJokeByIdAsync(this.id);
         this.joke = jokeResponse?.data[ApiResponseKeys.getJoke];
-        this.jokeCard = new ApiAppCard(this.joke, undefined, false, false)
+        const canEdit = this.global.currentUserEmail === this.joke.author;
+        this.jokeCard = new ApiAppCard(this.joke, false, canEdit, false)
       } catch (err) {
         console.log(err);
       }
     }
+  }
+
+  async deleteJoke(deleteEvent: { id: string }) {
+    await this.api.deleteJokeAsync(deleteEvent);
   }
 }

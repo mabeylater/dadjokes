@@ -7,6 +7,7 @@ import { ListJokesComponent } from './list-jokes/list-jokes.component';
 import { JokeCardComponent } from './shared/joke-card/joke-card.component';
 import { SharedModule } from '../shared/shared.module';
 import { ViewJokeComponent } from './view-joke/view-joke.component';
+import { JokesComponent } from './jokes.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ViewJokeComponent } from './view-joke/view-joke.component';
     CreateJokeComponent,
     ListJokesComponent,
     JokeCardComponent,
-    ViewJokeComponent
+    ViewJokeComponent,
+    JokesComponent
   ],
   imports: [
     CommonModule,

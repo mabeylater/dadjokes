@@ -49,7 +49,7 @@ export class GlobalService {
 
   checkIsAuthenticated() {
     this.auth.getCurrentUser()
-      .then(user => this._currentUserId = user)
+      .then(user => this._currentUserId = user.id)
       .catch(err => console.log(err));
   }
 
@@ -59,6 +59,7 @@ export class GlobalService {
     if(currentUser) {
       this._isAuthenticated = true;
       this.currentUser = currentUser;
+      this._currentUserId = currentUser.id
       return currentUser;
     }
   }

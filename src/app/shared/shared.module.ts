@@ -38,12 +38,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppCardContainerComponent } from '../views/app-card-container/app-card-container.component';
 import { AppCardComponent } from '../views/app-card/app-card.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CardActionRowComponent } from './card-action-row/card-action-row.component';
 
 
 @NgModule({
   declarations: [
     AppCardContainerComponent,
-    AppCardComponent
+    AppCardComponent,
+    CardActionRowComponent
   ],
   imports: [
     CommonModule,
@@ -127,7 +129,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatGridListModule,
 
     AppCardContainerComponent,
-    AppCardComponent
+    AppCardComponent,
+    CardActionRowComponent
   ]
 })
 export class SharedModule { }

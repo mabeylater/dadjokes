@@ -1,26 +1,22 @@
-<mat-toolbar class="page-options-toolbar" style="margin-bottom: 1rem;">
-  <!-- <button mat-icon-button (click)="getCatImages(selectedCategory)">
-    <mat-icon matPrefix>pets</mat-icon>
-  </button> -->
-  <mat-form-field style="margin-left:1rem" floatLabel="never">
-    <mat-label style="font-size: 14px;">Random</mat-label>
-    <mat-select style="font-size: 14px;" [(value)]="selectedCategory"
-      (selectionChange)="getCatImages(selectedCategory)">
+<mat-toolbar class="with-filters">
+  <mat-form-field floatLabel="never">
+    <mat-label>Random</mat-label>
+    <mat-select [(value)]="selectedCategory" (selectionChange)="getCatImages(selectedCategory)">
       <mat-option (click)="getCatImages()">Random</mat-option>
       <mat-option *ngFor="let item of catCategories" [value]="item.id">
         {{item.name}}
       </mat-option>
     </mat-select>
-    <mat-hint style="font-size: 12px;">filter by category</mat-hint>
+    <mat-hint>filter by category</mat-hint>
   </mat-form-field>
-  <mat-form-field style="margin-left:1rem" floatLabel="never">
-    <mat-label style="font-size: 14px;">number of images</mat-label>
-    <mat-select style="font-size: 14px;" [(value)]="limit" (selectionChange)="getCatImages(selectedCategory)">
+  <mat-form-field style="width: 64px;" floatLabel="never">
+    <mat-label>number of images</mat-label>
+    <mat-select [(value)]="limit" (selectionChange)="getCatImages(selectedCategory)">
       <mat-option [value]="6">6</mat-option>
       <mat-option [value]="12">12</mat-option>
       <mat-option [value]="18">18</mat-option>
     </mat-select>
-    <mat-hint style="font-size: 12px;">numbers of images to get</mat-hint>
+    <mat-hint>count</mat-hint>
   </mat-form-field>
 </mat-toolbar>
 <mat-divider></mat-divider>
@@ -41,9 +37,9 @@
           <mat-chip disabled="true" *ngIf="!cat.categories">no tags</mat-chip>
         </mat-chip-list>
         <span style="flex: auto"></span>
-        <button mat-icon-button>
+        <!-- <button mat-icon-button>
           <mat-icon>share</mat-icon>
-        </button>
+        </button> -->
         <a class="view-button" [routerLink]="['view']" [queryParams]="{'catImageName': getImageUrl(cat.url)}"
           mat-icon-button>
           <mat-icon>open_in_new</mat-icon>

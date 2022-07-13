@@ -1,4 +1,4 @@
-import { Favorites, Joke } from "./api";
+import { Favorites, Joke, Tag, UpdateJokeInput } from "./api";
 
 export interface AppNavigation {
   title: string;
@@ -23,6 +23,8 @@ export class AppCard {
   showFavorite?: boolean;
   id?: string;
   version?: number;
+  tags?: Array<any>;
+  isJoke: boolean;
 
 
   constructor(
@@ -34,7 +36,8 @@ export class AppCard {
     showDelete?: boolean,
     showFavorite?: boolean,
     id?: string,
-    version?: number
+    version?: number,
+    isJoke?: boolean,
   ) {
     this.title = title;
     this.subtitle = subtitle;
@@ -45,6 +48,7 @@ export class AppCard {
     this.showFavorite = showFavorite;
     this.id = id;
     this.version = version;
+    this.isJoke = isJoke;
   }
 }
 export class ApiAppCard extends AppCard {
@@ -57,12 +61,14 @@ export class ApiAppCard extends AppCard {
     super()
     if (joke) {
       this.id = joke.id;
+      this.tags = joke.tags?.items;
       this.subtitle = joke.author || 'unknown';
       this.content = joke.text || 'unknown';
       this.routerLink = ['/jokes', joke.id];
       this.showView = showView
       this.showDelete = showDelete
       this.showFavorite = showFavorite
+      this.isJoke = true;
     }
   }
 }

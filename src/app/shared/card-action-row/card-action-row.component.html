@@ -1,0 +1,40 @@
+<div class="action-card-actions">
+  <span style="margin-right: .5rem;">tags:</span>
+  <mat-chip-list style="flex: auto;" *ngIf="!canEdit">
+    <ng-container *ngIf="tags && tags.length > 0; else noTags">
+      <mat-chip *ngFor="let tag of tags" (click)="onTagSelected(tag)">{{tag.name}}</mat-chip>
+    </ng-container>
+    <ng-template #noTags>
+          <mat-chip disabled="true">no tags</mat-chip>
+    </ng-template>
+  </mat-chip-list>
+  <mat-form-field style="flex: auto;" *ngIf="canEdit">
+    <mat-label>Tags</mat-label>
+    <mat-chip-list #chipList aria-label="Tags">
+      <mat-chip *ngFor="let tag of jokeTags">
+        {{getTagName(tag.tagID)}}
+        <button matChipRemove (click)="removeTag(tag.tagID)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input placeholder="add tag" #tagInput [formControl]="tagControl" [matAutocomplete]="auto"
+        [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="findAndAddTag($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addTag($event.option.value)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <span style="flex: auto"></span>
+  <a *ngIf="canEdit" mat-icon-button (click)="onDeleteClick()" [routerLink]="['../']">
+    <mat-icon>delete</mat-icon>
+  </a>
+  <!-- <button mat-icon-button>
+    <mat-icon>share</mat-icon>
+  </button> -->
+  <a class="view-button" [routerLink]="[link]" [queryParams]="queryParams" mat-icon-button>
+    <mat-icon>open_in_new</mat-icon>
+  </a>
+</div>

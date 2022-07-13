@@ -3,16 +3,16 @@
 //  This file was automatically generated and should not be edited.
 
 export type CreateJokeInput = {
+  title?: string | null,
   text?: string | null,
   author?: string | null,
-  likedBy?: Array< string | null > | null,
   id?: string | null,
 };
 
 export type ModelJokeConditionInput = {
+  title?: ModelStringInput | null,
   text?: ModelStringInput | null,
   author?: ModelStringInput | null,
-  likedBy?: ModelStringInput | null,
   and?: Array< ModelJokeConditionInput | null > | null,
   or?: Array< ModelJokeConditionInput | null > | null,
   not?: ModelJokeConditionInput | null,
@@ -60,9 +60,38 @@ export type ModelSizeInput = {
 
 export type Joke = {
   __typename: "Joke",
+  title?: string | null,
   text?: string | null,
   author?: string | null,
-  likedBy?: Array< string | null > | null,
+  tags?: ModelJokeTagsConnection | null,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelJokeTagsConnection = {
+  __typename: "ModelJokeTagsConnection",
+  items:  Array<JokeTags | null >,
+  nextToken?: string | null,
+};
+
+export type JokeTags = {
+  __typename: "JokeTags",
+  id: string,
+  jokeID: string,
+  tagID: string,
+  joke: Joke,
+  tag: Tag,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type Tag = {
+  __typename: "Tag",
+  name?: string | null,
+  jokes?: ModelJokeTagsConnection | null,
   id: string,
   createdAt: string,
   updatedAt: string,
@@ -70,9 +99,9 @@ export type Joke = {
 };
 
 export type UpdateJokeInput = {
+  title?: string | null,
   text?: string | null,
   author?: string | null,
-  likedBy?: Array< string | null > | null,
   id: string,
 };
 
@@ -81,14 +110,12 @@ export type DeleteJokeInput = {
 };
 
 export type CreateFavoritesInput = {
-  owner?: string | null,
   jokeIds?: Array< string | null > | null,
   catFacts?: Array< string | null > | null,
   id?: string | null,
 };
 
 export type ModelFavoritesConditionInput = {
-  owner?: ModelStringInput | null,
   jokeIds?: ModelStringInput | null,
   catFacts?: ModelStringInput | null,
   and?: Array< ModelFavoritesConditionInput | null > | null,
@@ -98,16 +125,15 @@ export type ModelFavoritesConditionInput = {
 
 export type Favorites = {
   __typename: "Favorites",
-  owner?: string | null,
   jokeIds?: Array< string | null > | null,
   catFacts?: Array< string | null > | null,
   id: string,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateFavoritesInput = {
-  owner?: string | null,
   jokeIds?: Array< string | null > | null,
   catFacts?: Array< string | null > | null,
   id: string,
@@ -117,10 +143,71 @@ export type DeleteFavoritesInput = {
   id: string,
 };
 
+export type CreateTagInput = {
+  name?: string | null,
+  id?: string | null,
+};
+
+export type ModelTagConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelTagConditionInput | null > | null,
+  or?: Array< ModelTagConditionInput | null > | null,
+  not?: ModelTagConditionInput | null,
+};
+
+export type UpdateTagInput = {
+  name?: string | null,
+  id: string,
+};
+
+export type DeleteTagInput = {
+  id: string,
+};
+
+export type CreateJokeTagsInput = {
+  id?: string | null,
+  jokeID: string,
+  tagID: string,
+};
+
+export type ModelJokeTagsConditionInput = {
+  jokeID?: ModelIDInput | null,
+  tagID?: ModelIDInput | null,
+  and?: Array< ModelJokeTagsConditionInput | null > | null,
+  or?: Array< ModelJokeTagsConditionInput | null > | null,
+  not?: ModelJokeTagsConditionInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type UpdateJokeTagsInput = {
+  id: string,
+  jokeID?: string | null,
+  tagID?: string | null,
+};
+
+export type DeleteJokeTagsInput = {
+  id: string,
+};
+
 export type ModelJokeFilterInput = {
+  title?: ModelStringInput | null,
   text?: ModelStringInput | null,
   author?: ModelStringInput | null,
-  likedBy?: ModelStringInput | null,
   and?: Array< ModelJokeFilterInput | null > | null,
   or?: Array< ModelJokeFilterInput | null > | null,
   not?: ModelJokeFilterInput | null,
@@ -139,7 +226,6 @@ export enum ModelSortDirection {
 
 
 export type ModelFavoritesFilterInput = {
-  owner?: ModelStringInput | null,
   jokeIds?: ModelStringInput | null,
   catFacts?: ModelStringInput | null,
   and?: Array< ModelFavoritesFilterInput | null > | null,
@@ -153,6 +239,28 @@ export type ModelFavoritesConnection = {
   nextToken?: string | null,
 };
 
+export type ModelTagFilterInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelTagFilterInput | null > | null,
+  or?: Array< ModelTagFilterInput | null > | null,
+  not?: ModelTagFilterInput | null,
+};
+
+export type ModelTagConnection = {
+  __typename: "ModelTagConnection",
+  items:  Array<Tag | null >,
+  nextToken?: string | null,
+};
+
+export type ModelJokeTagsFilterInput = {
+  id?: ModelIDInput | null,
+  jokeID?: ModelIDInput | null,
+  tagID?: ModelIDInput | null,
+  and?: Array< ModelJokeTagsFilterInput | null > | null,
+  or?: Array< ModelJokeTagsFilterInput | null > | null,
+  not?: ModelJokeTagsFilterInput | null,
+};
+
 export type CreateJokeMutationVariables = {
   input: CreateJokeInput,
   condition?: ModelJokeConditionInput | null,
@@ -161,9 +269,13 @@ export type CreateJokeMutationVariables = {
 export type CreateJokeMutation = {
   createJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -179,9 +291,13 @@ export type UpdateJokeMutationVariables = {
 export type UpdateJokeMutation = {
   updateJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -197,9 +313,13 @@ export type DeleteJokeMutationVariables = {
 export type DeleteJokeMutation = {
   deleteJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -215,12 +335,12 @@ export type CreateFavoritesMutationVariables = {
 export type CreateFavoritesMutation = {
   createFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -232,12 +352,12 @@ export type UpdateFavoritesMutationVariables = {
 export type UpdateFavoritesMutation = {
   updateFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -249,12 +369,177 @@ export type DeleteFavoritesMutationVariables = {
 export type DeleteFavoritesMutation = {
   deleteFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateTagMutationVariables = {
+  input: CreateTagInput,
+  condition?: ModelTagConditionInput | null,
+};
+
+export type CreateTagMutation = {
+  createTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateTagMutationVariables = {
+  input: UpdateTagInput,
+  condition?: ModelTagConditionInput | null,
+};
+
+export type UpdateTagMutation = {
+  updateTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteTagMutationVariables = {
+  input: DeleteTagInput,
+  condition?: ModelTagConditionInput | null,
+};
+
+export type DeleteTagMutation = {
+  deleteTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateJokeTagsMutationVariables = {
+  input: CreateJokeTagsInput,
+  condition?: ModelJokeTagsConditionInput | null,
+};
+
+export type CreateJokeTagsMutation = {
+  createJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateJokeTagsMutationVariables = {
+  input: UpdateJokeTagsInput,
+  condition?: ModelJokeTagsConditionInput | null,
+};
+
+export type UpdateJokeTagsMutation = {
+  updateJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteJokeTagsMutationVariables = {
+  input: DeleteJokeTagsInput,
+  condition?: ModelJokeTagsConditionInput | null,
+};
+
+export type DeleteJokeTagsMutation = {
+  deleteJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -265,9 +550,13 @@ export type GetJokeQueryVariables = {
 export type GetJokeQuery = {
   getJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -286,9 +575,9 @@ export type ListJokesQuery = {
     __typename: "ModelJokeConnection",
     items:  Array< {
       __typename: "Joke",
+      title?: string | null,
       text?: string | null,
       author?: string | null,
-      likedBy?: Array< string | null > | null,
       id: string,
       createdAt: string,
       updatedAt: string,
@@ -311,9 +600,9 @@ export type JokeByAuthorQuery = {
     __typename: "ModelJokeConnection",
     items:  Array< {
       __typename: "Joke",
+      title?: string | null,
       text?: string | null,
       author?: string | null,
-      likedBy?: Array< string | null > | null,
       id: string,
       createdAt: string,
       updatedAt: string,
@@ -330,12 +619,12 @@ export type GetFavoritesQueryVariables = {
 export type GetFavoritesQuery = {
   getFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -350,36 +639,108 @@ export type ListFavoritesQuery = {
     __typename: "ModelFavoritesConnection",
     items:  Array< {
       __typename: "Favorites",
-      owner?: string | null,
       jokeIds?: Array< string | null > | null,
       catFacts?: Array< string | null > | null,
       id: string,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type MyFavoritesQueryVariables = {
-  owner: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelFavoritesFilterInput | null,
+export type GetTagQueryVariables = {
+  id: string,
+};
+
+export type GetTagQuery = {
+  getTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListTagsQueryVariables = {
+  filter?: ModelTagFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type MyFavoritesQuery = {
-  myFavorites?:  {
-    __typename: "ModelFavoritesConnection",
+export type ListTagsQuery = {
+  listTags?:  {
+    __typename: "ModelTagConnection",
     items:  Array< {
-      __typename: "Favorites",
-      owner?: string | null,
-      jokeIds?: Array< string | null > | null,
-      catFacts?: Array< string | null > | null,
+      __typename: "Tag",
+      name?: string | null,
       id: string,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetJokeTagsQueryVariables = {
+  id: string,
+};
+
+export type GetJokeTagsQuery = {
+  getJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListJokeTagsQueryVariables = {
+  filter?: ModelJokeTagsFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListJokeTagsQuery = {
+  listJokeTags?:  {
+    __typename: "ModelJokeTagsConnection",
+    items:  Array< {
+      __typename: "JokeTags",
+      id: string,
+      jokeID: string,
+      tagID: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -392,9 +753,13 @@ export type OnCreateJokeSubscriptionVariables = {
 export type OnCreateJokeSubscription = {
   onCreateJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -409,9 +774,13 @@ export type OnUpdateJokeSubscriptionVariables = {
 export type OnUpdateJokeSubscription = {
   onUpdateJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -426,9 +795,13 @@ export type OnDeleteJokeSubscriptionVariables = {
 export type OnDeleteJokeSubscription = {
   onDeleteJoke?:  {
     __typename: "Joke",
+    title?: string | null,
     text?: string | null,
     author?: string | null,
-    likedBy?: Array< string | null > | null,
+    tags?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
     id: string,
     createdAt: string,
     updatedAt: string,
@@ -443,12 +816,12 @@ export type OnCreateFavoritesSubscriptionVariables = {
 export type OnCreateFavoritesSubscription = {
   onCreateFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -459,12 +832,12 @@ export type OnUpdateFavoritesSubscriptionVariables = {
 export type OnUpdateFavoritesSubscription = {
   onUpdateFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -475,11 +848,170 @@ export type OnDeleteFavoritesSubscriptionVariables = {
 export type OnDeleteFavoritesSubscription = {
   onDeleteFavorites?:  {
     __typename: "Favorites",
-    owner?: string | null,
     jokeIds?: Array< string | null > | null,
     catFacts?: Array< string | null > | null,
     id: string,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateTagSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateTagSubscription = {
+  onCreateTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateTagSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateTagSubscription = {
+  onUpdateTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteTagSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteTagSubscription = {
+  onDeleteTag?:  {
+    __typename: "Tag",
+    name?: string | null,
+    jokes?:  {
+      __typename: "ModelJokeTagsConnection",
+      nextToken?: string | null,
+    } | null,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateJokeTagsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateJokeTagsSubscription = {
+  onCreateJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateJokeTagsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateJokeTagsSubscription = {
+  onUpdateJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteJokeTagsSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteJokeTagsSubscription = {
+  onDeleteJokeTags?:  {
+    __typename: "JokeTags",
+    id: string,
+    jokeID: string,
+    tagID: string,
+    joke:  {
+      __typename: "Joke",
+      title?: string | null,
+      text?: string | null,
+      author?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    tag:  {
+      __typename: "Tag",
+      name?: string | null,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    },
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
   } | null,
 };

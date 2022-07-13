@@ -1,0 +1,18 @@
+<mat-toolbar *ngIf="!hideToolbar" class="page-options-toolbar">
+  <!-- <mat-form-field *ngIf="!hideFilter" style="margin-left:1rem" floatLabel="never">
+    <mat-label>Select a Tag</mat-label>
+    <mat-select [(value)]="selectedTag" (selectionChange)="filter(selectedTag)">
+      <mat-option *ngFor="let item of allTags" [value]="item">
+        {{item.name}}
+      </mat-option>
+    </mat-select>
+    <mat-hint>filter by tag</mat-hint>
+  </mat-form-field> -->
+  <span style="flex: auto"></span>
+  <a *ngIf="isAuthenticated" [routerLink]="['create']" mat-raised-button color="primary">
+    <mat-icon matPrefix>add</mat-icon>
+    <span>Add Joke</span>
+  </a>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<router-outlet></router-outlet>

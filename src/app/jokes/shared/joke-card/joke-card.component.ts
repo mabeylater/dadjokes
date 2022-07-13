@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CreateJokeInput, Joke, UpdateJokeInput } from 'src/app/models/api';
+import { CreateJokeInput, Joke, Tag, UpdateJokeInput } from 'src/app/models/api';
 import { ApiAppCard, AppCard } from 'src/app/models/app.models';
 
 @Component({
@@ -13,8 +13,7 @@ export class JokeCardComponent {
   @Input() alwaysShow?: boolean;
   @Output() deleteClick = new EventEmitter<{ id: string }>();
 
-  onDeleteClick(id: string) {
-    this.deleteClick.emit({ id });
+  onDeleteClick(id?: string) {
+    if (id) this.deleteClick.emit({ id });
   }
-
 }

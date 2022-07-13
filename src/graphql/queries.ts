@@ -5,9 +5,12 @@
 export const getJoke = /* GraphQL */ `
   query GetJoke($id: ID!) {
     getJoke(id: $id) {
+      title
       text
       author
-      likedBy
+      tags {
+        nextToken
+      }
       id
       createdAt
       updatedAt
@@ -23,9 +26,9 @@ export const listJokes = /* GraphQL */ `
   ) {
     listJokes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        title
         text
         author
-        likedBy
         id
         createdAt
         updatedAt
@@ -51,9 +54,9 @@ export const jokeByAuthor = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
+        title
         text
         author
-        likedBy
         id
         createdAt
         updatedAt
@@ -66,12 +69,12 @@ export const jokeByAuthor = /* GraphQL */ `
 export const getFavorites = /* GraphQL */ `
   query GetFavorites($id: ID!) {
     getFavorites(id: $id) {
-      owner
       jokeIds
       catFacts
       id
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -83,39 +86,91 @@ export const listFavorites = /* GraphQL */ `
   ) {
     listFavorites(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        owner
         jokeIds
         catFacts
         id
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
   }
 `;
-export const myFavorites = /* GraphQL */ `
-  query MyFavorites(
-    $owner: String!
-    $sortDirection: ModelSortDirection
-    $filter: ModelFavoritesFilterInput
+export const getTag = /* GraphQL */ `
+  query GetTag($id: ID!) {
+    getTag(id: $id) {
+      name
+      jokes {
+        nextToken
+      }
+      id
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listTags = /* GraphQL */ `
+  query ListTags(
+    $filter: ModelTagFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    myFavorites(
-      owner: $owner
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
+    listTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        owner
-        jokeIds
-        catFacts
+        name
         id
         createdAt
         updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getJokeTags = /* GraphQL */ `
+  query GetJokeTags($id: ID!) {
+    getJokeTags(id: $id) {
+      id
+      jokeID
+      tagID
+      joke {
+        title
+        text
+        author
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      tag {
+        name
+        id
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listJokeTags = /* GraphQL */ `
+  query ListJokeTags(
+    $filter: ModelJokeTagsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listJokeTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        jokeID
+        tagID
+        createdAt
+        updatedAt
+        owner
       }
       nextToken
     }

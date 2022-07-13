@@ -2,5 +2,7 @@
   <app-create-joke></app-create-joke>
 </ng-container>
 <ng-template #currentJoke>
-  <app-card-container *ngIf="jokeCard" [cards]="[jokeCard]"></app-card-container>
+  <ng-container *ngIf="jokeCard">
+    <app-joke-card (deleteClick)="deleteJoke($event)" [cards]="[jokeCard]"></app-joke-card>
+  </ng-container>
 </ng-template>

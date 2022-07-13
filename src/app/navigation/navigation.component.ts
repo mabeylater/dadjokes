@@ -36,12 +36,12 @@ export class NavigationComponent implements OnInit {
         {
           name: 'Jokes',
           routerLink: '/jokes',
-          visible: true
+          visible: this.isAuthenticated
         },
         {
           name: 'Cats',
           routerLink: '/cats',
-          visible: true
+          visible: this.isAuthenticated
         },
         // {
         //   name: 'Favorites',
@@ -53,7 +53,7 @@ export class NavigationComponent implements OnInit {
           routerLink: '/login',
           icon: 'account_circle',
           iconOnly: true,
-          visible: true
+          visible: this.isAuthenticated
         }
       ]
     }

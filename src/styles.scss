@@ -68,6 +68,7 @@ mat-toolbar {
   // font-size: 20px !important;
   a {
     text-decoration: none !important;
+    color: #ffffff !important;
   }
 
   button mat-icon,
@@ -82,9 +83,20 @@ mat-toolbar {
   }
 }
 
-mat-toolbar {
-  a {
-    color: #ffffff !important;
+mat-toolbar.with-filters {
+  height: fit-content !important;
+  mat-form-field {
+    height: fit-content !important;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+
+    * {
+      font-size: 14px !important;
+    }
+
+    mat-hint {
+      font-size: 12px !important;
+    }
   }
 }
 

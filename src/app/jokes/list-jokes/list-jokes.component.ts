@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Joke } from 'src/app/models/api';
+import { ActivatedRoute } from '@angular/router';
+import { Joke, ModelJokeTagsFilterInput } from 'src/app/models/api';
 import { ApiAppCard } from 'src/app/models/app.models';
 import { ArrayApiResponse, ApiResponseKeys, ApiService } from 'src/app/services/api.service';
 import { GlobalService } from 'src/app/services/global.service';
@@ -22,26 +23,40 @@ export class ListJokesComponent implements OnInit {
 
   constructor(
     private api: ApiService,
-    private global: GlobalService
+    private global: GlobalService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getAllJokes()
+    this.getAllJokes();
+
+    // this.route.queryParamMap.subscribe(map => {
+    //   console.log('query tag', map.get('tagId'))
+    //   this.getAllJokes(map.get('tagId'));
+    // })
   }
 
-  async getAllJokes() {
+  async getAllJokes(tagId?: string) {
+    let filter: ModelJokeTagsFilterInput = null;
+    if(tagId) {
+      filter = {
+        tagID: {
+          eq: tagId
+        }
+      }
+    }
     await this.global.getIsAuthenticatedAsync();
     this.isAuthenticated = this.global.isAuthenticated;
 
     try {
-      const jokesResponse = await this.api.getAllJokesAsync();
+      const jokesResponse = await this.api.getAllJokesAsync(filter);
       this.jokes = jokesResponse.data[ApiResponseKeys.listJokes].items;
       this.jokeCards = this.jokes?.map(joke => new ApiAppCard(joke, true, false, this.isAuthenticated))
 
       if (this.global.isAuthenticated) {
         const myJokesResponse = await this.api.getMyJokesAsync();
         this.myJokes = myJokesResponse.data[ApiResponseKeys.jokeByAuthor].items;
-        this.myJokeCards = this.myJokes.map(joke => new ApiAppCard(joke, true, true, false));
+        this.myJokeCards = this.myJokes.map(joke => new ApiAppCard(joke, true, false, false));
       }
     } catch (err) {
       console.log(err);
@@ -50,5 +65,9 @@ export class ListJokesComponent implements OnInit {
 
   async deleteJoke(deleteEvent: {id: string }) {
     await this.api.deleteJokeAsync(deleteEvent);
+  }
+
+  getFilteredJokesByTagId() {
+
   }
 }
